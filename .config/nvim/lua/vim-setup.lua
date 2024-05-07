@@ -4,6 +4,11 @@ vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
+-- sign column setup
+vim.cmd("set signcolumn=yes")
+vim.cmd("set updatetime=100")
+vim.wo.relativenumber = true
+
 -- combine the windows and wsl clipboards
 vim.cmd("set clipboard+=unnamedplus")
 
