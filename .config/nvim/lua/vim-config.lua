@@ -7,7 +7,9 @@ vim.cmd("set shiftwidth=4")
 -- combine the windows and wsl clipboards
 vim.cmd("set clipboard+=unnamedplus")
 
+-- global keymappings
 vim.g.mapleader = " "
+
 vim.keymap.set({"n", "v"}, "<C-d>", "<C-d>zz")
 vim.keymap.set({"n", "v"}, "<C-u>", "<C-u>zz")
 
