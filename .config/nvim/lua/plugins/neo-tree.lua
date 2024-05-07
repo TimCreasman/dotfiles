@@ -12,7 +12,7 @@ return {
 		})
 		vim.keymap.set("n", "<leader>n", ":Neotree<CR>", {})
 
-        -- auto open neo tree
+		-- auto open neo tree
 		vim.api.nvim_create_augroup("neotree", {})
 		vim.api.nvim_create_autocmd("UiEnter", {
 			desc = "Open Neotree automatically",

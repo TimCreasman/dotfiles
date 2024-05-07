@@ -10,6 +10,5 @@ vim.cmd("set clipboard+=unnamedplus")
 -- global keymappings
 vim.g.mapleader = " "
 
-vim.keymap.set({"n", "v"}, "<C-d>", "<C-d>zz")
-vim.keymap.set({"n", "v"}, "<C-u>", "<C-u>zz")
-
+vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz")
+vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz")
