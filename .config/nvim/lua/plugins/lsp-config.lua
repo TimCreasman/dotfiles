@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "eslint" },
+                ensure_installed = { "lua_ls", "tsserver", "eslint", "angularls", "html", "emmet_language_server" },
             })
         end,
     },
@@ -39,6 +39,33 @@ return {
                         command = "EslintFixAll",
                     })
                 end,
+            })
+
+
+            lspconfig.html.setup({
+                capabilities = capabilities,
+            })
+
+            lspconfig.emmet_language_server.setup({
+                capabilities = capabilities,
+            })
+
+            local project_library_path = "/Users/tcreasman/.npm-global/lib/node_modules"
+
+            local cmd = {
+                "/Users/tcreasman/.npm-global/lib/node_modules/@angular/language-server/bin/ngserver",
+                "--ngProbeLocations",
+                project_library_path,
+                "--tsProbeLocations",
+                project_library_path,
+                "--stdio",
+            }
+
+            lspconfig.angularls.setup({
+                cmd = cmd,
+                on_new_config = function(new_config, new_root_dir)
+                    new_config.cmd = cmd
+                end
             })
 
             vim.api.nvim_create_autocmd("LspAttach", {
