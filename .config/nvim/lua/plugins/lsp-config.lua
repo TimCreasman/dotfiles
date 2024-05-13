@@ -44,10 +44,12 @@ return {
 
             lspconfig.html.setup({
                 capabilities = capabilities,
+                filetypes = {"html", "angular.html"}
             })
 
             lspconfig.emmet_language_server.setup({
                 capabilities = capabilities,
+                filetypes = {"html", "angular.html"}
             })
 
             local project_library_path = "/Users/tcreasman/.npm-global/lib/node_modules"
@@ -65,7 +67,8 @@ return {
                 cmd = cmd,
                 on_new_config = function(new_config, new_root_dir)
                     new_config.cmd = cmd
-                end
+                end,
+                filetypes = {"html", "angular.html"}
             })
 
             vim.api.nvim_create_autocmd("LspAttach", {
