@@ -13,6 +13,9 @@ return {
                 filtered_items = {
                     visible = true,
                 },
+                follow_current_file = {
+                    enabled = true,
+                }
             },
         })
         vim.keymap.set("n", "<leader>n", ":Neotree<CR>", {})
