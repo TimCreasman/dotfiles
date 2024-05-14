@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "eslint", "angularls", "html", "emmet_language_server" },
+                ensure_installed = { "lua_ls", "tsserver", "eslint@4.8.0", "angularls", "html", "emmet_language_server" },
             })
         end,
     },
@@ -44,12 +44,12 @@ return {
 
             lspconfig.html.setup({
                 capabilities = capabilities,
-                filetypes = {"html", "angular.html"}
+                filetypes = { "html", "angular.html" }
             })
 
             lspconfig.emmet_language_server.setup({
                 capabilities = capabilities,
-                filetypes = {"html", "angular.html"}
+                filetypes = { "html", "angular.html" }
             })
 
             local project_library_path = "/Users/tcreasman/.npm-global/lib/node_modules"
@@ -68,15 +68,13 @@ return {
                 on_new_config = function(new_config, new_root_dir)
                     new_config.cmd = cmd
                 end,
-                filetypes = {"html", "angular.html"}
+                filetypes = { "html", "angular.html", "typescript", "typescriptreact", "typescript.tsx" }
             })
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)
                     local opts = { buffer = ev.buf }
-                    -- local client = ev.client
-                    -- local buf = ev.buf
 
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
                     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -88,17 +86,6 @@ return {
                     vim.keymap.set({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, opts)
 
                     vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-
-                    -- if client.supports_method("textDocument/formatting") then
-                    --     vim.api.nvim_clear_autocmds({ group = augroup, buffer = buf })
-                    --     vim.api.nvim_create_autocmd("BufWritePre", {
-                    --         group = augroup,
-                    --         buffer = buf,
-                    --         callback = function()
-                    --             vim.lsp.buf.format()
-                    --         end,
-                    --     })
-                    -- end
                 end,
             })
         end,
