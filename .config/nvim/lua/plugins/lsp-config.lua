@@ -18,7 +18,6 @@ return {
                     "emmet_language_server",
                     "cssls",
                 },
-                ensure_installed = { "lua_ls", "tsserver", "eslint", "angularls", "html", "emmet_language_server" },
             })
         end,
     },
