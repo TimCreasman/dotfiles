@@ -9,7 +9,15 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "eslint@4.8.0", "angularls", "html", "emmet_language_server" },
+                ensure_installed = {
+                    "lua_ls",
+                    "tsserver",
+                    "eslint@4.8.0",
+                    "angularls",
+                    "html",
+                    "emmet_language_server",
+                    "cssls",
+                },
             })
         end,
     },
@@ -17,13 +25,13 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
             local lspconfig = require("lspconfig")
 
             lspconfig.lua_ls.setup({
                 capabilities = capabilities,
             })
 
+            -- Typescript lsps
             lspconfig.tsserver.setup({
                 capabilities = capabilities,
             })
@@ -41,7 +49,7 @@ return {
                 end,
             })
 
-
+            -- HTML lsps
             lspconfig.html.setup({
                 capabilities = capabilities,
                 filetypes = { "html", "angular.html" }
@@ -52,10 +60,16 @@ return {
                 filetypes = { "html", "angular.html" }
             })
 
-            local project_library_path = "/Users/tcreasman/.npm-global/lib/node_modules"
+            lspconfig.cssls.setup({
+                capabilities = capabilities
+            })
 
+            -- Note: this is mainly a workaround as this relies on a global angular lsp to be installed 
+            -- If this fails, ensure @angular/language-server, @angular/language-service and typescript are all installed globally
+            local npm_global_path = vim.fn.system("npm config get prefix"):gsub("\n", "") -- remove newlines
+            local project_library_path = npm_global_path .. "/lib/node_modules"
             local cmd = {
-                "/Users/tcreasman/.npm-global/lib/node_modules/@angular/language-server/bin/ngserver",
+                npm_global_path .. "/lib/node_modules/@angular/language-server/bin/ngserver",
                 "--ngProbeLocations",
                 project_library_path,
                 "--tsProbeLocations",
@@ -65,7 +79,7 @@ return {
 
             lspconfig.angularls.setup({
                 cmd = cmd,
-                on_new_config = function(new_config, new_root_dir)
+                on_new_config = function(new_config, _)
                     new_config.cmd = cmd
                 end,
                 filetypes = { "html", "angular.html", "typescript", "typescriptreact", "typescript.tsx" }
