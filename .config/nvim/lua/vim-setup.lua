@@ -17,3 +17,19 @@ vim.g.mapleader = " "
 
 vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz")
 vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz")
+
+-- angular treesitter support setup
+vim.filetype.add({
+    pattern = {
+        -- Sets the filetype to `angular.html` if it matches the pattern
+        [".*%.component%.html"] = "angular.html",
+    },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "angular.html",
+    callback = function()
+        -- Register the filetype with treesitter for the `angular` language/parser
+        vim.treesitter.language.register("angular", "angular.html")
+    end,
+})
