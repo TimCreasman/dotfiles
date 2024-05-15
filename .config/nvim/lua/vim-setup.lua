@@ -12,6 +12,9 @@ vim.wo.relativenumber = true
 -- combine the windows and wsl clipboards
 vim.cmd("set clipboard+=unnamedplus")
 
+--session options
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- global keymappings
 vim.g.mapleader = " "
 
