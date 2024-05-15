@@ -6,7 +6,7 @@ return {
 	config = function()
 		local config = require("nvim-treesitter.configs")
 		config.setup({
-            ensure_installed = { "angular" },
+            ensure_installed = { "angular", "javascript", "typescript", "tsx", "css", "styled" },
 			auto_install = true,
 			highlight = { enable = true },
 			indent = { enable = true },
