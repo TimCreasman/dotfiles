@@ -6,7 +6,6 @@ return {
             options = {
                 theme = "solarized_dark",
             },
-            sections = { lualine_c = { require('auto-session.lib').current_session_name } }
         })
     end,
 }
