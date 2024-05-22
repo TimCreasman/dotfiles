@@ -4,16 +4,18 @@ vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
+-- no swap files
+vim.cmd("set noswapfile")
+vim.cmd("set undofile")
+
 -- sign column setup
 vim.cmd("set signcolumn=yes")
 vim.cmd("set updatetime=100")
+vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- combine the windows and wsl clipboards
 vim.cmd("set clipboard+=unnamedplus")
-
---session options
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- global keymappings
 vim.g.mapleader = " "
