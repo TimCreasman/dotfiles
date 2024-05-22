@@ -18,7 +18,7 @@ return {
                 }
             },
         })
-        vim.keymap.set("n", "<leader>n", ":Neotree<CR>", {})
+        vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", {})
 
         -- auto open neo tree
         -- vim.api.nvim_create_augroup("neotree", {})
