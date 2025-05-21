@@ -17,6 +17,20 @@ vim.wo.relativenumber = true
 -- combine the windows and wsl clipboards
 vim.cmd("set clipboard+=unnamedplus")
 
+-- global clipboard for WSL support
+vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+       ['+'] = 'clip.exe',
+       ['*'] = 'clip.exe',
+     },
+    paste = {
+       ['+'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+       ['*'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+}
+
 -- global keymappings
 vim.g.mapleader = " "
 
@@ -25,6 +39,9 @@ vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz")
 
 vim.keymap.set({ "n", "v" }, "<C-o>", "<C-o>zz")
 vim.keymap.set({ "n", "v" }, "<C-i>", "<C-i>zz")
+
+-- diagnostic shortcut
+vim.keymap.set({ "n", "v" }, "<leader>d", vim.diagnostic.open_float, {})
 
 -- angular treesitter support setup
 vim.filetype.add({

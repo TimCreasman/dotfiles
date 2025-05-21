@@ -14,6 +14,8 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+            -- Lua snip support in tsx files
+            luasnip.filetype_extend("typescriptreact", { "html" })
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 
