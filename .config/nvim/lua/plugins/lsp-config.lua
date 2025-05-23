@@ -15,8 +15,9 @@ return {
                     "eslint@4.8.0",
                     "angularls",
                     "html",
-                    "emmet_language_server",
+                    "emmet_ls",
                     "cssls",
+                    "tailwindcss",
                 },
             })
         end,
@@ -55,12 +56,16 @@ return {
                 filetypes = { "html", "angular.html" }
             })
 
-            lspconfig.emmet_language_server.setup({
+            lspconfig.emmet_ls.setup({
                 capabilities = capabilities,
                 filetypes = { "html", "angular.html" }
             })
 
             lspconfig.cssls.setup({
+                capabilities = capabilities
+            })
+
+            lspconfig.tailwindcss.setup({
                 capabilities = capabilities
             })
 
