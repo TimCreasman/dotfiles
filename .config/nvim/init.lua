@@ -1,4 +1,5 @@
-require("vim-setup")
+require "tim.core.keymaps"
+require "tim.core.options"
 
 -- package manager:
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -14,4 +15,4 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup("tim.plugins")
