@@ -24,71 +24,38 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPost", "BufNewFile" },
+        cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         config = function()
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local lspconfig = require("lspconfig")
 
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-            })
-
-            -- Typescript lsps
-            lspconfig.ts_ls.setup({
-                capabilities = capabilities,
-            })
-
-            lspconfig.eslint.setup({
-                capabilities = capabilities,
-                settings = {
-                    packageManager = "npm",
-                },
-                on_attach = function(_, bufnr)
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        command = "EslintFixAll",
-                    })
-                end,
-            })
-
-            -- HTML lsps
-            lspconfig.html.setup({
-                capabilities = capabilities,
-                filetypes = { "html", "angular.html" }
-            })
-
-            lspconfig.emmet_ls.setup({
-                capabilities = capabilities,
-                filetypes = { "html", "angular.html" }
-            })
-
-            lspconfig.cssls.setup({
+            -- Default config to apply to all lsps
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local config = {
                 capabilities = capabilities
-            })
-
-            lspconfig.tailwindcss.setup({
-                capabilities = capabilities
-            })
-
-            -- Note: this is mainly a workaround as this relies on a global angular lsp to be installed 
-            -- If this fails, ensure @angular/language-server, @angular/language-service and typescript are all installed globally
-            local npm_global_path = vim.fn.system("npm config get prefix"):gsub("\n", "") -- remove newlines
-            local project_library_path = npm_global_path .. "/lib/node_modules"
-            local cmd = {
-                npm_global_path .. "/lib/node_modules/@angular/language-server/bin/ngserver",
-                "--ngProbeLocations",
-                project_library_path,
-                "--tsProbeLocations",
-                project_library_path,
-                "--stdio",
             }
 
-            lspconfig.angularls.setup({
-                cmd = cmd,
-                on_new_config = function(new_config, _)
-                    new_config.cmd = cmd
-                end,
-                filetypes = { "html", "angular.html", "typescript", "typescriptreact", "typescript.tsx" }
-            })
+            local servers = require("tim.configs.lsps")
+
+            for _, server_name in pairs(servers) do
+                local server = lspconfig[server_name]
+                if server == nil then
+                    error("lsp not found for " .. server_name)
+                    break
+                end
+
+                local has_custom_config, custom_config = pcall(require, "tim.configs.lsps." .. server_name)
+
+                if has_custom_config then
+                    config = vim.tbl_deep_extend(
+                        "force",
+                        custom_config,
+                        config
+                    )
+                end
+
+                server.setup(config)
+            end
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
