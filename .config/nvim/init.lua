@@ -1,4 +1,5 @@
 require "tim.core.keymaps"
+require "tim.core.autocmds"
 require "tim.core.options"
 
 -- package manager:
