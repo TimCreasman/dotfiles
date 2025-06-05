@@ -23,24 +23,24 @@ return {
             },
             window = {
                 mappings = {
-                  ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
-                  ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
-                  ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
+                    ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
+                    ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
+                    ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
                 }
             }
         })
-        vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", { desc = "Toggle the filesystem browser"})
+        vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", { desc = "Toggle the filesystem browser" })
 
         -- auto open neo tree
-        -- vim.api.nvim_create_augroup("neotree", {})
-        -- vim.api.nvim_create_autocmd("UiEnter", {
-        --     desc = "Open Neotree automatically",
-        --     group = "neotree",
-        --     callback = function()
-        --         if vim.fn.argc() == 0 then
-        --             vim.cmd("Neotree toggle")
-        --         end
-        --     end,
-        -- })
+        vim.api.nvim_create_augroup("neotree", {})
+        vim.api.nvim_create_autocmd("UiEnter", {
+            desc = "Open Neotree automatically",
+            group = "neotree",
+            callback = function()
+                if vim.fn.argc() == 0 then
+                    vim.cmd("Neotree action=show")
+                end
+            end,
+        })
     end,
 }

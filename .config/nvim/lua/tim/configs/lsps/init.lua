@@ -7,4 +7,5 @@ return {
     "lua_ls",
     "tailwindcss",
     "ts_ls",
+    "gopls"
 }

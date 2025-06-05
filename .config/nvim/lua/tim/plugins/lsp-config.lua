@@ -18,12 +18,14 @@ return {
                     "emmet_ls",
                     "cssls",
                     "tailwindcss",
+                    "gopls"
                 },
             })
         end,
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = { "saecki/live-rename.nvim" },
         event = { "BufReadPost", "BufNewFile" },
         cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         config = function()
@@ -53,7 +55,6 @@ return {
                         config
                     )
                 end
-
                 server.setup(config)
             end
 
@@ -68,7 +69,9 @@ return {
 
                     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
-                    vim.keymap.set({ "n", "v" }, "<leader>rn", vim.lsp.buf.rename, opts)
+                    local live_rename = require("live-rename")
+                    vim.keymap.set({ "n", "v" }, "<leader>rn", live_rename.map({ text = "", insert = true }),
+                        { desc = "LSP rename" })
 
                     vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
                 end,
