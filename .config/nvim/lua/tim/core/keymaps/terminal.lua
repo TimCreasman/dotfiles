@@ -32,3 +32,13 @@ end
 vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal, {
     desc = 'toggle terminal',
 })
+
+local function past_reg_in_terminal()
+    local next_char_code = vim.fn.getchar()
+    local next_char = vim.fn.nr2char(next_char_code)
+    return '<C-\\><C-N>"' .. next_char .. 'pi'
+end
+vim.keymap.set('t', '<c-r>', past_reg_in_terminal, {
+    desc = 'Allows pasting registers into the terminal via c-r',
+    expr = true
+})
