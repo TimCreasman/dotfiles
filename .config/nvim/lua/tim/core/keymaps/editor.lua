@@ -17,7 +17,7 @@ end, { expr = true, desc = 'Yank the line on `dd` only if it is non-empty' })
 
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open diagnostics float" })
 
-vim.keymap.set({ "i", "x", "n", "s" }, "<leader>w", "<cmd>wa<cr><esc>", { desc = "Save all alias" })
+vim.keymap.set({ "x", "n", "s" }, "<leader>w", "<cmd>wa<cr><esc>", { desc = "Save all alias" })
 
-vim.keymap.set({ "i", "x", "n", "s" }, "<leader>q", "<cmd>wa<cr><esc><cmd>qa<cr><esc>",
+vim.keymap.set({ "x", "n", "s" }, "<leader>q", "<cmd>wa<cr><esc><cmd>qa<cr><esc>",
     { desc = "Save all plus quit all done in succession due to terminal not closing nicely" })
