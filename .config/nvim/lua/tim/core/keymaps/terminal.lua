@@ -29,7 +29,8 @@ local function toggle_terminal()
     end
 end
 
-vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal, {
+vim.keymap.set({ 'n', 't' }, 'zsh', toggle_terminal, {
+    nowait = true,
     desc = 'toggle terminal',
 })
 

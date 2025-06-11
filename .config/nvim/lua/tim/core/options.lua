@@ -15,7 +15,8 @@ opt.swapfile = false
 opt.undofile = true
 
 opt.signcolumn = "yes"
-opt.updatetime = 100
+opt.updatetime = 800
+opt.timeoutlen = 300
 
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -34,10 +35,9 @@ vim.diagnostic.config {
     }
 }
 
+opt.clipboard = opt.clipboard + "unnamedplus"
+-- additional clipboard setup if on wsl
 if utils.is_wsl() then
-    -- combine the windows and wsl clipboards
-    opt.clipboard = opt.clipboard + "unnamedplus"
-
     vim.g.clipboard = {
         name = 'WslClipboard',
         copy = {
