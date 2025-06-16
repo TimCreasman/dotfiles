@@ -30,6 +30,8 @@ return {
                         keymaps = {
                             ["af"] = { query = "@function.outer", desc = "Select outer part of a function" },
                             ["if"] = { query = "@function.inner", desc = "Select inner part of a function" },
+                            ["ap"] = { query = "@parameter.outer", desc = "Select outer part of a parameter" },
+                            ["ip"] = { query = "@parameter.inner", desc = "Select inner part of a parameter" },
                             ["ac"] = { query = "@class.outer", desc = "Select outer part of a class region" },
                             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
                             ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },

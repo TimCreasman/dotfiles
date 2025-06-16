@@ -1,6 +1,6 @@
 return {
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         config = function()
             require("mason").setup()
         end,
@@ -64,7 +64,7 @@ return {
                     local opts = { buffer = ev.buf }
 
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "K", function()
+                    vim.keymap.set({ "n", "v" }, "K", function()
                         vim.lsp.buf.hover { border = "single", max_height = 25, max_width = 120 }
                     end, opts)
                     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
