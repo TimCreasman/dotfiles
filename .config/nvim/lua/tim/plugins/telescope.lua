@@ -29,12 +29,14 @@ return {
                     vim.fn.getpos ".", vim.fn.getpos "v", { mode = vim.fn.mode() }
                 )
             end
-            vim.keymap.set("v", "<leader>fg", function() builtin.live_grep {
+            vim.keymap.set("v", "<leader>fg", function()
+                builtin.live_grep {
                     default_text = table.concat(get_selection())
                 }
-                end
+            end
             )
 
+            -- TODO should this be moved to lsp?
             -- if gd goes to the same location as the cursor, automatically call lsp_references
             local goto_definition_or_reference = function()
                 local function on_list(options)

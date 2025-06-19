@@ -1,9 +1,6 @@
 return {
     {
-        dir = "~/projects/neo-tree-tests",
-        -- config = function()
-        --     require("neo-tree-tests").setup()
-        -- end
+        dir = "~/projects/neo-tree-tests-source.nvim",
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -12,7 +9,6 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
-            -- "~/projects/neo-tree-tests"
         },
         lazy = false,
         config = function()
@@ -27,6 +23,7 @@ return {
                     winbar = true,
                 },
                 filesystem = {
+                    bind_to_cwd = true,
                     filtered_items = {
                         visible = true,
                     },
@@ -35,19 +32,12 @@ return {
                     },
                     use_libuv_file_watcher = true,
                 },
-                tests = {
-                    -- The config for your source goes here. This is the same as any other source, plus whatever
-                    -- special config options you add.
-                    --window = {...}
-                    --renderers = { ..}
-                    --etc
-                },
                 window = {
                     mappings = {
-                        ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
-                        ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
-                        ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
-                        ['x'] = function() vim.api.nvim_exec('Neotree focus tests left', true) end,
+                        ['e'] = function() vim.api.nvim_exec2('Neotree focus filesystem left', { output = true }) end,
+                        ['b'] = function() vim.api.nvim_exec2('Neotree focus buffers left', { output = true }) end,
+                        ['g'] = function() vim.api.nvim_exec2('Neotree focus git_status left', { output = true }) end,
+                        ['t'] = function() vim.api.nvim_exec2('Neotree focus tests left', { output = true }) end,
                     }
                 }
             })

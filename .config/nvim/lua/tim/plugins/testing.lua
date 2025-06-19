@@ -28,6 +28,9 @@ return {
                     require("neotest-go"),
                     require("neotest-busted")({}),
                 },
+                consumers = {
+                    require("neotest.consumers.neo-tree")
+                }
             })
 
             vim.keymap.set("n", "<leader>tr", neotest.run.run, {})
