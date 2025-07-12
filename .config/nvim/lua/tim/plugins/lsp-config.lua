@@ -21,7 +21,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "saecki/live-rename.nvim" },
+        dependencies = { "saecki/live-rename.nvim", "b0o/schemastore.nvim" },
         event = { "BufReadPost", "BufNewFile" },
         cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         config = function()
@@ -80,4 +80,17 @@ return {
             })
         end,
     },
+    -- Special tsserver integration via typescript-tools
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        opts = {},
+        config = function()
+            require("typescript-tools").setup {
+                settings = {
+                    tsserver_path = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+                },
+            }
+        end
+    }
 }
