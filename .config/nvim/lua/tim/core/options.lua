@@ -18,6 +18,8 @@ opt.signcolumn = "yes"
 opt.updatetime = 800
 opt.timeoutlen = 300
 
+opt.scrolloff = 25
+
 vim.wo.number = true
 vim.wo.relativenumber = true
 
@@ -28,8 +30,7 @@ vim.diagnostic.config {
     virtual_lines = false,
     update_in_insert = true,
     float = {
-        -- UI.
-        header = false,
+        header = '',
         border = 'rounded',
         focusable = true,
     }
