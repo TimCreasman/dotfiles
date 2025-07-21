@@ -15,7 +15,7 @@ return {
             local servers = require("tim.configs.lsp")
             require("mason-lspconfig").setup({
                 automatic_enable = false,
-                ensure_installed = servers,
+                ensure_installed = servers.mason_ensured_servers,
             })
         end,
     },
@@ -35,7 +35,7 @@ return {
 
             local servers = require("tim.configs.lsp")
 
-            for _, server_name in pairs(servers) do
+            for _, server_name in pairs(servers.configs) do
                 local lsp_config = lspconfig[server_name]
                 if lsp_config == nil then
                     error("lsp not found for " .. server_name)
@@ -80,4 +80,15 @@ return {
             })
         end,
     },
+    -- Nice code actions on save plugin
+    -- Currently "required" to purposely sync async code actions
+    -- See this: https://github.com/neovim/neovim/issues/31176
+    {
+        "fnune/codeactions-on-save.nvim",
+        dependencies = { "neovim/nvim-lspconfig" },
+        config = function()
+            local cos = require("codeactions-on-save")
+            cos.register({ "*.go" }, { "source.organizeImports", "source.fixAll" })
+        end
+    }
 }

@@ -6,8 +6,11 @@ return {
             "MisanthropicBit/neotest-busted",
             "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
+            "nvim-neotest/neotest-plenary",
             "antoinemadec/FixCursorHold.nvim",
-            "nvim-treesitter/nvim-treesitter"
+            "nvim-treesitter/nvim-treesitter",
+            "zidhuss/neotest-minitest",
+            "TimCreasman/neo-tree-tests-source.nvim"
         },
         config = function()
             -- get neotest namespace (api call creates or returns namespace)
@@ -25,11 +28,15 @@ return {
             neotest.setup({
                 -- your neotest config here
                 adapters = {
+                    require("neotest-plenary"),
                     require("neotest-go"),
-                    require("neotest-busted")({}),
+                    require("neotest-minitest"),
+                    -- require("neotest-busted")({
+                    --     local_luarocks_only = false
+                    -- }),
                 },
                 consumers = {
-                    require("neotest.consumers.neo-tree")
+                    neotree = require("neotest.consumers.neotree")
                 }
             })
 
@@ -38,5 +45,6 @@ return {
                 neotest.run.run(vim.fn.expand("%"))
             end, {})
             vim.keymap.set("n", "<leader>to", neotest.output.open, {})
+            vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, {})
         end
     } }

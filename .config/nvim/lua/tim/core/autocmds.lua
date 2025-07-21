@@ -1,7 +1,3 @@
-local utils = require("tim.core.utils")
-local neo_tree_commands = require("neo-tree.sources.filesystem.commands")
-local neo_tree_sources_manager = require("neo-tree.sources.manager")
-
 vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup(
         'tim_lsp_format_before_write',
@@ -13,28 +9,19 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end
 })
 
-local workingDir = vim.api.nvim_create_augroup('tim_change_working_dir_on_buf_enter', { clear = true })
--- This help keeps the working directory locked to the directory where .git resides if possible
-vim.api.nvim_create_autocmd("VimEnter", {
-    group = workingDir,
+-- TODO build better groups
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    group = vim.api.nvim_create_augroup(
+        'tim_center_screen_on_enter',
+        { clear = true }
+    ),
+    desc = "Auto center screen whenever entering a new buffer",
     callback = function(_)
-        -- delay the creation of this autocmd until all startup is completed
-        vim.api.nvim_create_autocmd('BufWinEnter', {
-            group = vim.api.nvim_create_augroup(
-                'tim_change_working_dir_on_buf_enter',
-                { clear = true }
-            ),
-            desc = 'Change the working directory when navigating across projects.',
-            callback = function(_)
-                local target_dir = utils.closest_git_dir()
-                if target_dir ~= nil and vim.fn.getcwd() ~= target_dir then
-                    vim.cmd('cd ' .. utils.closest_git_dir())
-
-                    -- TODO find a better way to refresh neo tree programatically
-                    -- Supposedly the filesystem should be synced with cwd but this isn't the case?
-                    neo_tree_commands.refresh(neo_tree_sources_manager.get_state("filesystem"))
-                end
-            end
-        })
+        if vim.bo.buftype == "" then
+            -- TOD is this awful?
+            vim.schedule(function()
+                vim.cmd("normal! zz")
+            end)
+        end
     end
 })

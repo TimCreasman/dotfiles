@@ -5,7 +5,7 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local builtin = require("telescope.builtin")
-            local state = require('telescope.state')
+            --[[ local state = require('telescope.state')
             local last_search = nil
 
             -- remember the last thing searched for:
@@ -18,7 +18,7 @@ return {
                 else
                     builtin.resume({ picker = last_search })
                 end
-            end
+            end ]]
 
             vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})

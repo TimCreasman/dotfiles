@@ -18,8 +18,6 @@ vim.keymap.set('n', 'dd', function()
     return 'dd'
 end, { expr = true, desc = 'Yank the line on `dd` only if it is non-empty' })
 
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open diagnostics float" })
-
 vim.keymap.set({ "x", "n", "s" }, "<leader>w", "<cmd>wa<cr>", { desc = "Save all alias" })
 
 vim.keymap.set({ "x", "n", "s" }, "<leader>x", "<cmd>source %<cr>", { desc = "Execute current lua file" })
