@@ -24,7 +24,6 @@ M.mason_ensured_servers = {
     "lua_ls",
     -- "tailwindcss",
     -- "ts_ls",
-    "gopls",
 }
 
 return M

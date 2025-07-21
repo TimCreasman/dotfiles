@@ -21,7 +21,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "saecki/live-rename.nvim" },
+        dependencies = { "saecki/live-rename.nvim", "b0o/schemastore.nvim" },
         event = { "BufReadPost", "BufNewFile" },
         cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         config = function()
