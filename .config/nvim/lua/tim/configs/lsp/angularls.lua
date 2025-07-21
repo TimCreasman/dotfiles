@@ -11,19 +11,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
---[[ -- Note: this is mainly a workaround as this relies on a global angular lsp to be installed
--- If this fails, ensure @angular/language-server, @angular/language-service and typescript are all installed globally
-local angularls_path = vim.fn.expand("$MASON/packages/angular-language-server")
-
-local cmd = {
-    -- angularls_path .. "/node_modules/@angular/language-server/bin/ngserver",
-    -- "--ngProbeLocations",
-    -- "/Users/tcreasman/projects/pattern/pattern-console/node_modules",
-    -- "--tsProbeLocations",
-    -- angularls_path .. "/node_modules",
-    -- "--stdio",
-} ]]
-
 return {
     filetypes = { "html", "angular.html", "typescript", "typescriptreact", "typescript.tsx" }
 }
