@@ -1,8 +1,9 @@
-local pipe = "/tmp/godot.pipe"
+local utils = require("tim.core.utils")
 
-return {
-    cmd = { "godot-wsl-lsp", "--useMirroredNetworking" },
-    on_attach = function()
-        vim.api.nvim_command('echo serverstart("' .. pipe .. '")')
-    end
-}
+if utils.is_wsl() then
+    return {
+        cmd = { "godot-wsl-lsp", "--useMirroredNetworking", "--experimentalFastPathConversion" },
+    }
+else
+    return {}
+end

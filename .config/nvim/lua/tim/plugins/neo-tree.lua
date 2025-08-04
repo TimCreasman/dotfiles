@@ -43,6 +43,12 @@ return {
                         }
                     }
                 },
+                nesting_rules = {
+                    ["*.gd"] = {
+                        files = { '%1%.gd%.uid' },
+                        pattern = '(.*)%.gd$'
+                    },
+                },
                 window = {
                     mappings = {
                         ['E'] = function() vim.api.nvim_exec2('Neotree focus filesystem left', { output = true }) end,
