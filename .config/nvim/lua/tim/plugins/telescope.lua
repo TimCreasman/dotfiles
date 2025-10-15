@@ -4,6 +4,16 @@ return {
         tag = "0.1.6",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
+            require("telescope").setup {
+                defaults = {
+                    file_ignore_patterns = {
+                        -- godot file types
+                        "%.tres",
+                        "%.tscn",
+                        "%.uid"
+                    }
+                }
+            }
             local builtin = require("telescope.builtin")
             --[[ local state = require('telescope.state')
             local last_search = nil
@@ -22,7 +32,7 @@ return {
 
             vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-
+            vim.keymap.set("n", "<leader>fp", builtin.planets, {})
             -- live grep with visual selection
             local get_selection = function()
                 return vim.fn.getregion(
@@ -57,7 +67,14 @@ return {
 
             vim.keymap.set("n", "gd", goto_definition_or_reference, {})
 
-            vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+            vim.keymap.set("n", "<leader>fb", function()
+                builtin.buffers {
+                    show_all_buffers = true,
+                    ignore_current_buffer = true,
+                    sort_mru = true
+                }
+            end, {})
+
             vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
             vim.keymap.set({ "n", "v" }, "<leader>fr", builtin.lsp_references, {})
         end,
